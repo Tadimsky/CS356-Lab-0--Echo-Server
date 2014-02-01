@@ -106,7 +106,7 @@ int server(uint16_t port)
 			perror("Could not accept client");
 			exit(1);
 		}
-		while (true) {
+		while (1) {
 			len = recv(new_s, buf, sizeof(buf),0);
 			printf(len);
 			if (len == 0) {
