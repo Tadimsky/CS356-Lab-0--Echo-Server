@@ -92,30 +92,27 @@ int server(uint16_t port)
 
 	/* setup passive open */
 	if ((s = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
-		perror("simplex-talk: socket");
+		perror("Could not create socket");
 		exit(1);
 	}
 	if ((bind(s, (struct sockaddr *)%sin, sizeof(sin)))< 0) {
-		perror("simplex-talk:L bind");
+		perror("Could not bind to socket");
 		exit(1);
 	}
-	listen(s, MAX_BACK_LOG);
 
+	listen(s, MAX_BACK_LOG);
 	while (1) {
 		if ((new_s = accept(s, (struct sockaddr*)&sin, &len)) < 0) {
-			perror("simplex-talk: accept");
+			perror("Could not accept client");
 			exit(1);
 		}
 		while (len = recv(new_s, buf, sizeof(buf), 0)) {
+			// receives message
 			fputs(buf, stdout);
 		}
-		close(new_s);
-		}
+
+		// write message
+		close(new_s);		
 	}
-
-
-	/*
-		Add your code here
-	*/
 	return 0;
 }
