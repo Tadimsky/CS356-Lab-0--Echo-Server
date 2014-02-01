@@ -107,10 +107,12 @@ int server(uint16_t port)
 			perror("Could not accept client");
 			exit(1);
 		}
-		while (len = recv(new_s, buf, sizeof(buf), 0)) {
-			printf("Receiving message.\n");
-			// receives message
-			fputs(buf, stdout);
+		while (true) {
+			len = recv(new_s, buf, sizeof(buf),0);
+			printf(len);
+			if (len == 0) {
+				break;
+			}
 		}
 		printf("Message Received.\n")
 		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
