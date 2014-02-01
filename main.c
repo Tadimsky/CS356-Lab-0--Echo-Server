@@ -104,7 +104,7 @@ int server(uint16_t port)
 	}
 
 	listen(s, MAX_BACK_LOG);
-	printf("Listening on port %d\n", port);
+	printf("listen done, waiting for connection \n");
 	while (1) {
 		if ((new_s = accept(s, (struct sockaddr *)&dest, &socksize)) < 0) {
 			perror("Could not accept client");
