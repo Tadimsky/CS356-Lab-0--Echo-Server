@@ -79,7 +79,6 @@ int client(const char * addr, uint16_t port)
 
 int server(uint16_t port)
 {
-	int sock; 
 	struct sockaddr_in sin;
 	char buf[MAX_MSG_LENGTH];
 	int len;
@@ -114,7 +113,7 @@ int server(uint16_t port)
 				break;
 			}
 		}
-		printf("Message Received.\n")
+		printf("Message Received.\n");
 		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
 			perror("Send error:");
 			return 1;
