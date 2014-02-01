@@ -111,7 +111,7 @@ int server(uint16_t port)
 			perror("Recv error:");
 			return 1;
 		}
-		buf[len] = 0;
+		buf[recv_len] = 0;
 		printf("Client reply:\n%s\n", buf);
 
 		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
