@@ -80,9 +80,13 @@ int client(const char * addr, uint16_t port)
 int server(uint16_t port)
 {
 	struct sockaddr_in sin;
+	struct sockaddr_in dest;
+	
 	char buf[MAX_MSG_LENGTH];
 	int len;
 	int s, new_s;
+
+	socklen_t socksize = sizeof(struct sockaddr_in);
 
 	bzero((char *)&sin, sizeof(sin));
 	sin.sin_family = AF_INET;
@@ -102,11 +106,12 @@ int server(uint16_t port)
 	listen(s, MAX_BACK_LOG);
 	printf("Listening on port %d\n", port);
 	while (1) {
-		if ((new_s = accept(s, (struct sockaddr*)&sin, &len)) < 0) {
+		if ((new_s = accept(s, (struct sockaddr *)&dest, &socksize)) < 0) {
 			perror("Could not accept client");
 			exit(1);
 		}
-		printf("accept connection from: %s\n", inet_ntoa(sin.sin_addr));
+
+		printf("accept connection from: %s\n", inet_ntoa(dest.sin_addr));
 
 		while (1) {
 			if ((len = recv(new_s, buf, MAX_MSG_LENGTH, 0)) < 0) {
