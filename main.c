@@ -12,6 +12,12 @@ int client(const char * addr, uint16_t port);
 #define MAX_MSG_LENGTH (1300)
 #define MAX_BACK_LOG (5)
 
+/*
+ Jonno Schmidt
+ Adam Sommer
+ Sean Wareham
+ */
+
 int main(int argc, char ** argv)
 {
 	if (argc < 3) {
