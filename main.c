@@ -95,7 +95,7 @@ int server(uint16_t port)
 		perror("Could not create socket");
 		exit(1);
 	}
-	if ((bind(s, (struct sockaddr *)%sin, sizeof(sin)))< 0) {
+	if ((bind(s, (struct sockaddr *)&sin, sizeof(sin)))< 0) {
 		perror("Could not bind to socket");
 		exit(1);
 	}
@@ -109,6 +109,10 @@ int server(uint16_t port)
 		while (len = recv(new_s, buf, sizeof(buf), 0)) {
 			// receives message
 			fputs(buf, stdout);
+		}
+		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
+			perror("Send error:");
+			return 1;
 		}
 
 		// write message
