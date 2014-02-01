@@ -101,20 +101,23 @@ int server(uint16_t port)
 	}
 
 	listen(s, MAX_BACK_LOG);
+	printf("Listening on port %d\n", port);
 	while (1) {
 		if ((new_s = accept(s, (struct sockaddr*)&sin, &len)) < 0) {
 			perror("Could not accept client");
 			exit(1);
 		}
 		while (len = recv(new_s, buf, sizeof(buf), 0)) {
+			printf("Receiving message.\n");
 			// receives message
 			fputs(buf, stdout);
 		}
+		printf("Message Received.\n")
 		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
 			perror("Send error:");
 			return 1;
 		}
-
+		printf("Echoed message.\n");
 		// write message
 		close(new_s);		
 	}
