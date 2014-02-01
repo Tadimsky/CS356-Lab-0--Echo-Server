@@ -79,6 +79,41 @@ int client(const char * addr, uint16_t port)
 
 int server(uint16_t port)
 {
+	int sock; 
+	struct sockaddr_in sin;
+	char buf[MAX_MSG_LENGTH];
+	int len;
+	int s, new_s;
+
+	bzero((char *)&sin, sizeof(sin));
+	sin.sin_family = AF_INET;
+	sin.sin_addr.s_addr = INADDR_ANY;
+	sin.sin_port = htons(port);
+
+	/* setup passive open */
+	if ((s = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
+		perror("simplex-talk: socket");
+		exit(1);
+	}
+	if ((bind(s, (struct sockaddr *)%sin, sizeof(sin)))< 0) {
+		perror("simplex-talk:L bind");
+		exit(1);
+	}
+	listen(s, MAX_BACK_LOG);
+
+	while (1) {
+		if ((new_s = accept(s, (struct sockaddr*)&sin, &len)) < 0) {
+			perror("simplex-talk: accept");
+			exit(1);
+		}
+		while (len = recv(new_s, buf, sizeof(buf), 0)) {
+			fputs(buf, stdout);
+		}
+		close(new_s);
+		}
+	}
+
+
 	/*
 		Add your code here
 	*/
