@@ -123,8 +123,7 @@ int server(uint16_t port)
 
 		while (1) {
 			len = recv(new_s, buf, sizeof(buf),0);
-			
-			printf("%d", len);
+			printf("%i", len);
 			if (len == 0) {
 				break;
 			}
