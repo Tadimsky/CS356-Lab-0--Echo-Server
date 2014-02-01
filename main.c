@@ -107,35 +107,24 @@ int server(uint16_t port)
 			exit(1);
 		}
 
-		if ((len = recv(new_s, buf, MAX_MSG_LENGTH, 0)) < 0) {
-			perror("Recv error:");
-			return 1;
-		}
-		buf[len] = 0;
-		printf("Client reply:\n%s\n", buf);
-
-		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
-			perror("Send error:");
-			return 1;
-		}
-		/*
-
-
 		while (1) {
-			len = recv(new_s, buf, sizeof(buf),0);
-			printf("%i", len);
+			if ((len = recv(new_s, buf, MAX_MSG_LENGTH, 0)) < 0) {
+				perror("Recv error:");
+				return 1;
+			}
 			if (len == 0) {
 				break;
 			}
+			buf[len] = 0;
+			printf("Client reply:\n%s\n", buf);
+
+			if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
+				perror("Send error:");
+				return 1;
+			}
+
+			printf("Echoed message.\n");
 		}
-		buf[len] = 0;
-		printf("Message Received.\n");
-		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
-			perror("Send error:");
-			return 1;
-		}
-*/
-		printf("Echoed message.\n");
 		// write message
 		close(new_s);		
 	}
