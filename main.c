@@ -79,7 +79,6 @@ int client(const char * addr, uint16_t port)
 
 int server(uint16_t port)
 {
-	int sock; 
 	struct sockaddr_in sin;
 	char buf[MAX_MSG_LENGTH];
 	int len;
@@ -107,12 +106,12 @@ int server(uint16_t port)
 			perror("Could not accept client");
 			exit(1);
 		}
-		while (len = recv(new_s, buf, sizeof(buf), 0)) {
+		while ((len = recv(new_s, buf, sizeof(buf), 0))) {
 			printf("Receiving message.\n");
 			// receives message
 			fputs(buf, stdout);
 		}
-		printf("Message Received.\n")
+		printf("Message Received.\n");
 		if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
 			perror("Send error:");
 			return 1;
