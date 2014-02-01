@@ -106,7 +106,7 @@ int server(uint16_t port)
 			perror("Could not accept client");
 			exit(1);
 		}
-		
+		printf("accept connection from: %s\n", inet_ntoa(sin.sin_addr));
 
 		while (1) {
 			if ((len = recv(new_s, buf, MAX_MSG_LENGTH, 0)) < 0) {
@@ -114,10 +114,11 @@ int server(uint16_t port)
 				return 1;
 			}
 			if (len == 0) {
+				printf("client disconnected\n");
 				break;
 			}
 			buf[len] = 0;
-			printf("Client reply:\n%s\n", buf);
+			printf("recv from client: %s\n", buf);
 
 			if (send(new_s, buf, strnlen(buf, MAX_MSG_LENGTH), 0) < 0) {
 				perror("Send error:");
