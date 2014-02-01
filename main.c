@@ -95,7 +95,7 @@ int server(uint16_t port)
 		perror("Could not create socket");
 		exit(1);
 	}
-	if ((bind(s, (struct sockaddr *)%sin, sizeof(sin)))< 0) {
+	if ((bind(s, (struct sockaddr *)&sin, sizeof(sin)))< 0) {
 		perror("Could not bind to socket");
 		exit(1);
 	}
