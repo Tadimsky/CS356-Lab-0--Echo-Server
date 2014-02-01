@@ -106,6 +106,7 @@ int server(uint16_t port)
 			perror("Could not accept client");
 			exit(1);
 		}
+		
 
 		while (1) {
 			if ((len = recv(new_s, buf, MAX_MSG_LENGTH, 0)) < 0) {
@@ -122,8 +123,6 @@ int server(uint16_t port)
 				perror("Send error:");
 				return 1;
 			}
-
-			printf("Echoed message.\n");
 		}
 		// write message
 		close(new_s);		
